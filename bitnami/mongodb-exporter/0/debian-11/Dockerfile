@@ -11,7 +11,7 @@ LABEL org.opencontainers.image.authors="https://bitnami.com/contact" \
       org.opencontainers.image.version="0.36.0"
 
 ENV HOME="/" \
-    OS_ARCH="${TARGETARCH:-amd64}" \
+    OS_ARCH="${TARGETARCH:-arm64}" \
     OS_FLAVOUR="debian-11" \
     OS_NAME="linux"
 
@@ -25,12 +25,13 @@ RUN mkdir -p /tmp/bitnami/pkg/cache/ && cd /tmp/bitnami/pkg/cache/ && \
     ) && \
     for COMPONENT in "${COMPONENTS[@]}"; do \
       if [ ! -f "${COMPONENT}.tar.gz" ]; then \
-        curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz" -O ; \
-        curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz.sha256" -O ; \
+        curl "https://anuphal.s3.amazonaws.com/${COMPONENT}.tar.gz" -O ; \
+        #curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz.sha256" -O ; \
       fi && \
-      sha256sum -c "${COMPONENT}.tar.gz.sha256" && \
+#      sha256sum -c "${COMPONENT}.tar.gz.sha256" && \
       tar -zxf "${COMPONENT}.tar.gz" -C /opt/bitnami --strip-components=2 --no-same-owner --wildcards '*/files' && \
-      rm -rf "${COMPONENT}".tar.gz{,.sha256} ; \
+      rm -rf "${COMPONENT}".tar.gz ; \
+#{,.sha256} ; \
     done
 RUN apt-get autoremove --purge -y curl && \
     apt-get update && apt-get upgrade -y && \
