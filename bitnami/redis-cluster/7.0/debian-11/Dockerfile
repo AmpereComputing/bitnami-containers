@@ -21,12 +21,12 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN install_packages ca-certificates curl libssl1.1 procps
 RUN mkdir -p /tmp/bitnami/pkg/cache/ && cd /tmp/bitnami/pkg/cache/ && \
     COMPONENTS=( \
-      "redis-7.0.7-0-linux-${OS_ARCH}-debian-11" \
-      "gosu-1.16.0-0-linux-${OS_ARCH}-debian-11" \
+      "redis-7.0.5-1-linux-${OS_ARCH}-debian-11" \
+      "gosu-1.14.0-156-linux-${OS_ARCH}-debian-11" \
     ) && \
     for COMPONENT in "${COMPONENTS[@]}"; do \
       if [ ! -f "${COMPONENT}.tar.gz" ]; then \
-        curl -SsLf "https://anuphal.s3.ap-south-1.amazonaws.com/${COMPONENT}.tar.gz" -O ; \
+        curl -SsLf "https://anuphal.s3.amazonaws.com/${COMPONENT}.tar.gz" -O ; \
 #        curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz.sha256" -O ; \
       fi && \
 #      sha256sum -c "${COMPONENT}.tar.gz.sha256" && \
@@ -41,7 +41,7 @@ RUN chmod g+rwX /opt/bitnami
 
 COPY rootfs /
 RUN /opt/bitnami/scripts/redis-cluster/postunpack.sh
-ENV APP_VERSION="7.0.7" \
+ENV APP_VERSION="7.0.5" \
     BITNAMI_APP_NAME="redis-cluster" \
     PATH="/opt/bitnami/redis/bin:/opt/bitnami/common/bin:$PATH"
 

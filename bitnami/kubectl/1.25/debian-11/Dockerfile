@@ -21,11 +21,11 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN install_packages ca-certificates curl git jq procps
 RUN mkdir -p /tmp/bitnami/pkg/cache/ && cd /tmp/bitnami/pkg/cache/ && \
     COMPONENTS=( \
-      "kubectl-1.25.5-0-linux-${OS_ARCH}-debian-11" \
+      "kubectl-1.25.4-0-linux-${OS_ARCH}-debian-11" \
     ) && \
     for COMPONENT in "${COMPONENTS[@]}"; do \
       if [ ! -f "${COMPONENT}.tar.gz" ]; then \
-        curl -SsLf "https://anuphal.s3.ap-south-1.amazonaws.com/${COMPONENT}.tar.gz" -O ; \
+        curl -SsLf "https://anuphal.s3.amazonaws.com/${COMPONENT}.tar.gz" -O ; \
 #        curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz" -O ; \
 #        curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz.sha256" -O ; \
       fi && \
@@ -40,7 +40,7 @@ RUN apt-get autoremove --purge -y curl && \
 RUN chmod g+rwX /opt/bitnami
 RUN mkdir /.kube && chmod g+rwX /.kube
 
-ENV APP_VERSION="1.25.5" \
+ENV APP_VERSION="1.25.4" \
     BITNAMI_APP_NAME="kubectl" \
     PATH="/opt/bitnami/kubectl/bin:$PATH"
 

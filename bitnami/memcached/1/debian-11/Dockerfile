@@ -22,11 +22,11 @@ RUN install_packages ca-certificates curl libevent-2.1-7 libsasl2-2 libsasl2-mod
 RUN mkdir -p /tmp/bitnami/pkg/cache/ && cd /tmp/bitnami/pkg/cache/ && \
     COMPONENTS=( \
       "memcached-1.6.17-1-linux-${OS_ARCH}-debian-11" \
-      "gosu-1.16.0-0-linux-${OS_ARCH}-debian-11" \
+      "gosu-1.14.0-156-linux-${OS_ARCH}-debian-11" \
     ) && \
     for COMPONENT in "${COMPONENTS[@]}"; do \
       if [ ! -f "${COMPONENT}.tar.gz" ]; then \
-        curl -SsLf "https://anuphal.s3.ap-south-1.amazonaws.com/${COMPONENT}.tar.gz" -O ; \
+        curl -SsLf "https://anuphal.s3.amazonaws.com/${COMPONENT}.tar.gz" -O ; \
 #        curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz" -O ; \
 #        curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz.sha256" -O ; \
       fi && \
